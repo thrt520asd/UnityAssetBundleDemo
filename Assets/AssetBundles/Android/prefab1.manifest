@@ -1,0 +1,27 @@
+ManifestFileVersion: 0
+CRC: 1611818033
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: e0c13ae90ed2756025947bc511ac668d
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: a70dffded5dbc6fcbf8025b4c4008b0f
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 35dd3deaa14abb944adc6deb8430e890, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+Assets:
+- Assets/prefab1/GameObject.prefab
+Dependencies:
+- E:/project/ABDemo/Assets/AssetBundles/Android/common

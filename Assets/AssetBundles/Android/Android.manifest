@@ -1,0 +1,15 @@
+ManifestFileVersion: 0
+CRC: 3746663723
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: prefab1
+      Dependencies:
+        Dependency_0: common
+    Info_1:
+      Name: prefab
+      Dependencies:
+        Dependency_0: common
+    Info_2:
+      Name: common
+      Dependencies: {}
