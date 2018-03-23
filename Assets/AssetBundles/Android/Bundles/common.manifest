@@ -1,18 +1,20 @@
 ManifestFileVersion: 0
-CRC: 4188866946
+CRC: 642422329
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: efdf273ab5d2f4184129948194f08a42
+    Hash: 9f4e140f1722b80abacbbe666db0593f
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 8ce7ff9c0c6ba8d2a623d30ec748ce2c
+    Hash: 8d068741ae817c9b5c92580f37de87e3
 HashAppended: 0
 ClassTypes:
 - Class: 21
   Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
 - Class: 48
   Script: {instanceID: 0}
 Assets:
-- Assets/builtInExtra/Default-Diffuse.mat
+- Assets/builtInExtra/Font Material.mat
 Dependencies: []

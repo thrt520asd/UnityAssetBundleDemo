@@ -1,0 +1,157 @@
+Hidden/TerrainEngine/Splatmap/Diffuse-AddPass:AddPass.shader
+Legacy Shaders/Transparent/Bumped Diffuse:Alpha-Bumped.shader
+Legacy Shaders/Transparent/Bumped Specular:Alpha-BumpSpec.shader
+Legacy Shaders/Transparent/Diffuse:Alpha-Diffuse.shader
+Legacy Shaders/Transparent/Specular:Alpha-Glossy.shader
+Legacy Shaders/Transparent/Parallax Diffuse:Alpha-Parallax.shader
+Legacy Shaders/Transparent/Parallax Specular:Alpha-ParallaxSpec.shader
+Legacy Shaders/Transparent/VertexLit:Alpha-VertexLit.shader
+Legacy Shaders/Transparent/Cutout/Bumped Diffuse:AlphaTest-Bumped.shader
+Legacy Shaders/Transparent/Cutout/Bumped Specular:AlphaTest-BumpSpec.shader
+Legacy Shaders/Transparent/Cutout/Diffuse:AlphaTest-Diffuse.shader
+Legacy Shaders/Transparent/Cutout/Specular:AlphaTest-Glossy.shader
+Legacy Shaders/Transparent/Cutout/Soft Edge Unlit:AlphaTest-SoftEdgeUnlit.shader
+Legacy Shaders/Transparent/Cutout/VertexLit:AlphaTest-VertexLit.shader
+Hidden/TerrainEngine/BillboardTree:BillboardTree.shader
+Hidden/VR/BlitCopyFromTexArray:BlitCopyFromTexArray.shader
+Hidden/CubeBlend:CubeBlend.shader
+Hidden/CubeBlur:CubeBlur.shader
+Hidden/CubeBlurOdd:CubeBlurOdd.shader
+Hidden/CubeCopy:CubeCopy.shader
+Legacy Shaders/Decal:Decal.shader
+Nature/Terrain/Diffuse:FirstPass.shader
+FX/Flare:Flare.shader
+GUI/Text Shader:Font.shader
+Hidden/FrameDebuggerRenderTargetDisplay:FrameDebuggerRenderTargetDisplay.shader
+Legacy Shaders/Self-Illumin/Bumped Diffuse:Illumin-Bumped.shader
+Legacy Shaders/Self-Illumin/Bumped Specular:Illumin-BumpSpec.shader
+Legacy Shaders/Self-Illumin/Diffuse:Illumin-Diffuse.shader
+Legacy Shaders/Self-Illumin/Specular:Illumin-Glossy.shader
+Legacy Shaders/Self-Illumin/Parallax Diffuse:Illumin-Parallax.shader
+Legacy Shaders/Self-Illumin/Parallax Specular:Illumin-ParallaxSpec.shader
+Legacy Shaders/Self-Illumin/VertexLit:Illumin-VertexLit.shader
+Hidden/BlitCopy:Internal-BlitCopy.shader
+Hidden/BlitCopyDepth:Internal-BlitCopyDepth.shader
+Hidden/InternalClear:Internal-Clear.shader
+Hidden/Internal-Colored:Internal-Colored.shader
+Hidden/Internal-CombineDepthNormals:Internal-CombineDepthNormals.shader
+Hidden/ConvertTexture:Internal-ConvertTexture.shader
+Hidden/Internal-DeferredReflections:Internal-DeferredReflections.shader
+Hidden/Internal-DeferredShading:Internal-DeferredShading.shader
+Hidden/Internal-DepthNormalsTexture:Internal-DepthNormalsTexture.shader
+Hidden/InternalErrorShader:Internal-ErrorShader.shader
+Hidden/Internal-Flare:Internal-Flare.shader
+Hidden/Internal-GUIRoundedRect:Internal-GUIRoundedRect.shader
+Hidden/Internal-GUITexture:Internal-GUITexture.shader
+Hidden/Internal-GUITextureBlit:Internal-GUITextureBlit.shader
+Hidden/Internal-GUITextureClip:Internal-GUITextureClip.shader
+Hidden/Internal-GUITextureClipText:Internal-GUITextureClipText.shader
+Hidden/Internal-Halo:Internal-Halo.shader
+Hidden/Internal-MotionVectors:Internal-MotionVectors.shader
+Hidden/Internal-PrePassLighting:Internal-PrePassLighting.shader
+Hidden/Internal-ScreenSpaceShadows:Internal-ScreenSpaceShadows.shader
+Hidden/Internal-StencilWrite:Internal-StencilWrite.shader
+Hidden/VR/Internal-VRDistortion:Internal-VRDistortion.shader
+Legacy Shaders/Lightmapped/Bumped Diffuse:Lightmap-Bumped.shader
+Legacy Shaders/Lightmapped/Bumped Specular:Lightmap-BumpSpec.shader
+Legacy Shaders/Lightmapped/Diffuse:Lightmap-Diffuse.shader
+Legacy Shaders/Lightmapped/Specular:Lightmap-Glossy.shader
+Legacy Shaders/Lightmapped/VertexLit:Lightmap-VertexLit.shader
+Mobile/Bumped Diffuse:Mobile-Bumped.shader
+Mobile/Bumped Specular (1 Directional Light):Mobile-BumpSpec-1DirectionalLight.shader
+Mobile/Bumped Specular:Mobile-BumpSpec.shader
+Mobile/Diffuse:Mobile-Diffuse.shader
+Mobile/Unlit (Supports Lightmap):Mobile-Lightmap-Unlit.shader
+Mobile/Particles/Additive:Mobile-Particle-Add.shader
+Mobile/Particles/VertexLit Blended:Mobile-Particle-Alpha-VertexLit.shader
+Mobile/Particles/Alpha Blended:Mobile-Particle-Alpha.shader
+Mobile/Particles/Multiply:Mobile-Particle-Multiply.shader
+Mobile/Skybox:Mobile-Skybox.shader
+Mobile/VertexLit (Only Directional Lights):Mobile-VertexLit-OnlyDirectionalLights.shader
+Mobile/VertexLit:Mobile-VertexLit.shader
+Legacy Shaders/Bumped Diffuse:Normal-Bumped.shader
+Legacy Shaders/Bumped Specular:Normal-BumpSpec.shader
+Legacy Shaders/Diffuse:Normal-Diffuse.shader
+Legacy Shaders/Diffuse Detail:Normal-DiffuseDetail.shader
+Legacy Shaders/Diffuse Fast:Normal-DiffuseFast.shader
+Legacy Shaders/Specular:Normal-Glossy.shader
+Legacy Shaders/Parallax Diffuse:Normal-Parallax.shader
+Legacy Shaders/Parallax Specular:Normal-ParallaxSpec.shader
+Legacy Shaders/VertexLit:Normal-VertexLit.shader
+Particles/Additive:Particle Add.shader
+Particles/~Additive-Multiply:Particle AddMultiply.shader
+Particles/Additive (Soft):Particle AddSmooth.shader
+Particles/Alpha Blended:Particle Alpha Blend.shader
+Particles/Anim Alpha Blended:Particle Anim Alpha Blend.shader
+Particles/Blend:Particle Blend.shader
+Particles/Multiply:Particle Multiply.shader
+Particles/Multiply (Double):Particle MultiplyDouble.shader
+Particles/Alpha Blended Premultiply:Particle Premultiply Blend.shader
+Particles/VertexLit Blended:Particle VertexLit Blended.shader
+Legacy Shaders/Reflective/Bumped Diffuse:Reflect-Bumped.shader
+Legacy Shaders/Reflective/Bumped Unlit:Reflect-BumpNolight.shader
+Legacy Shaders/Reflective/Bumped Specular:Reflect-BumpSpec.shader
+Legacy Shaders/Reflective/Bumped VertexLit:Reflect-BumpVertexLit.shader
+Legacy Shaders/Reflective/Diffuse:Reflect-Diffuse.shader
+Legacy Shaders/Reflective/Specular:Reflect-Glossy.shader
+Legacy Shaders/Reflective/Parallax Diffuse:Reflect-Parallax.shader
+Legacy Shaders/Reflective/Parallax Specular:Reflect-ParallaxSpec.shader
+Legacy Shaders/Reflective/VertexLit:Reflect-VertexLit.shader
+Hidden/GIDebug/ShowLightMask:ShowLightMask.shader
+Skybox/Cubemap:Skybox-Cubed.shader
+Skybox/Procedural:Skybox-Procedural.shader
+Skybox/6 Sided:Skybox.shader
+VR/SpatialMapping/Occlusion:SpatialMappingOcclusion.shader
+VR/SpatialMapping/Wireframe:SpatialMappingWireframe.shader
+Hidden/TerrainEngine/Splatmap/Specular-AddPass:Specular-AddPass.shader
+Hidden/TerrainEngine/Splatmap/Specular-Base:Specular-Base.shader
+Nature/Terrain/Specular:Specular-FirstPass.shader
+Nature/SpeedTree:SpeedTree.shader
+Nature/SpeedTree Billboard:SpeedTreeBillboard.shader
+Sprites/Default:Sprites-Default.shader
+Sprites/Diffuse:Sprites-Diffuse.shader
+Sprites/Mask:Sprites-Mask.shader
+Hidden/TerrainEngine/Splatmap/Standard-AddPass:Standard-AddPass.shader
+Hidden/TerrainEngine/Splatmap/Standard-Base:Standard-Base.shader
+Nature/Terrain/Standard:Standard-FirstPass.shader
+Standard:Standard.shader
+Standard (Specular setup):StandardSpecular.shader
+Hidden/GIDebug/TextureUV:TextureUV.shader
+Nature/Tree Creator Bark:TreeCreatorBark.shader
+Hidden/Nature/Tree Creator Bark Optimized:TreeCreatorBarkOptimized.shader
+Hidden/Nature/Tree Creator Bark Rendertex:TreeCreatorBarkRendertex.shader
+Nature/Tree Creator Leaves:TreeCreatorLeaves.shader
+Nature/Tree Creator Leaves Fast:TreeCreatorLeavesFast.shader
+Hidden/Nature/Tree Creator Leaves Fast Optimized:TreeCreatorLeavesFastOptimized.shader
+Hidden/Nature/Tree Creator Leaves Optimized:TreeCreatorLeavesOptimized.shader
+Hidden/Nature/Tree Creator Leaves Rendertex:TreeCreatorLeavesRendertex.shader
+Nature/Tree Soft Occlusion Bark:TreeSoftOcclusionBark.shader
+Hidden/Nature/Tree Soft Occlusion Bark Rendertex:TreeSoftOcclusionBarkRendertex.shader
+Nature/Tree Soft Occlusion Leaves:TreeSoftOcclusionLeaves.shader
+Hidden/Nature/Tree Soft Occlusion Leaves Rendertex:TreeSoftOcclusionLeavesRendertex.shader
+Hidden/UI/CompositeOverdraw:UI-CompositeOverdraw.shader
+UI/Default:UI-Default.shader
+UI/DefaultETC1:UI-DefaultETC1.shader
+UI/Default Font:UI-DefaultFont.shader
+UI/Lit/Bumped:UI-Lit-Bumped.shader
+UI/Lit/Detail:UI-Lit-Detail.shader
+UI/Lit/Refraction:UI-Lit-Refraction.shader
+UI/Lit/Refraction Detail:UI-Lit-RefractionDetail.shader
+UI/Lit/Transparent:UI-Lit-Transparent.shader
+Hidden/UI/Overdraw:UI-Overdraw.shader
+UI/Unlit/Detail:UI-Unlit-Detail.shader
+UI/Unlit/Text:UI-Unlit-Text.shader
+UI/Unlit/Text Detail:UI-Unlit-TextDetail.shader
+UI/Unlit/Transparent:UI-Unlit-Transparent.shader
+Unlit/Transparent:Unlit-Alpha.shader
+Unlit/Transparent Cutout:Unlit-AlphaTest.shader
+Unlit/Color:Unlit-Color.shader
+Unlit/Texture:Unlit-Normal.shader
+Hidden/GIDebug/UV1sAsPositions:UV1sAsPositions.shader
+Hidden/GIDebug/VertexColors:VertexColors.shader
+Hidden/TerrainEngine/Details/Vertexlit:VertexLit.shader
+Hidden/VideoDecode:VideoDecode.shader
+Hidden/VideoDecodeAndroid:VideoDecodeAndroid.shader
+Hidden/VideoDecodeOSX:VideoDecodeOSX.shader
+Hidden/TerrainEngine/Details/WavingDoublePass:WavingGrass.shader
+Hidden/TerrainEngine/Details/BillboardWavingDoublePass:WavingGrassBillboard.shader

@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{028315E3-B1B1-49D3-33C9-35BDF20C13A1}</ProjectGuid>
+    <ProjectGuid>{9A71998B-B709-5F54-8A39-035D333ACA47}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -53,7 +53,7 @@
   <ItemGroup>
      <Compile Include="Assets\lzip.cs" />
      <Compile Include="Assets\Test.cs" />
-     <None Include="Assets\AssetBundles\file.txt" />
+     <None Include="Assets\AssetBundles\Android\file.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

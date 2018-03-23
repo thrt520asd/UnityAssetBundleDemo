@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 4076718647
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: d9e76543cdbae6b70dd2308bd53ca371
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: bf45a693cba34bf6690ae7a121f21f9c
+HashAppended: 0
+ClassTypes:
+- Class: 48
+  Script: {instanceID: 0}
+Assets:
+- Assets/builtInExtra/Font.shader
+Dependencies: []

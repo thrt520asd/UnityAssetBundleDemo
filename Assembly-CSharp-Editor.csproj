@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{6CB5E767-F80E-BAEB-EFCC-18703C9603ED}</ProjectGuid>
+    <ProjectGuid>{06CCAEEE-1103-8F4E-EF9B-2FBA5F79C0E0}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp-Editor</AssemblyName>
@@ -72,7 +72,7 @@
      <Compile Include="Assets\Editor\EditorTools.cs" />
      <Compile Include="Assets\Editor\ExportBuiltInResTools.cs" />
      <Compile Include="Assets\Editor\ZipExTools.cs" />
-     <None Include="Assets\AssetBundles\file.txt" />
+     <None Include="Assets\AssetBundles\Android\file.txt" />
  <Reference Include="UnityEditor.Advertisements">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Advertisements/Editor/UnityEditor.Advertisements.dll</HintPath>
  </Reference>
@@ -136,7 +136,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp.csproj">
-      <Project>{028315E3-B1B1-49D3-33C9-35BDF20C13A1}</Project>      <Name>Assembly-CSharp</Name>    </ProjectReference>
+      <Project>{9A71998B-B709-5F54-8A39-035D333ACA47}</Project>      <Name>Assembly-CSharp</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

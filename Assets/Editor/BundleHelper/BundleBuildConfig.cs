@@ -5,7 +5,7 @@ using UnityEditor;
 
 public static class BundleBuildConfig  {
 
-	public static BuildTarget buildTarget
+	public static BuildTarget BuildTarget
 	{
 		get { return EditorPrefs.HasKey("ABBuild.buildTarget") ? (BuildTarget)EditorPrefs.GetInt("ABBuild.buildTarget") : BuildTarget.StandaloneWindows; }
 		set { EditorPrefs.SetInt("ABBuild.buildTarget", (int)value); }
@@ -23,7 +23,7 @@ public static class BundleBuildConfig  {
 		set { EditorPrefs.SetInt("ABBuild.compressOption", (int)value); }
 	}
 
-	public static bool forceBuild
+	public static bool ForceBuild
 	{
 		get { return EditorPrefs.GetBool("ABBuild.forceBuild"); }
 		set { EditorPrefs.SetBool("ABBuild.forceBuild", value); }
@@ -39,7 +39,21 @@ public static class BundleBuildConfig  {
 		get { return Application.dataPath + "/" + BuiltExtraFolderName; }
 	}
 
+	public static bool isReplaceBuiltInRes {
+		get{
+			return EditorPrefs.GetBool ("BundleBuild.isReplaceBuiltInRes" , true);
+		}
+		set{
+			EditorPrefs.SetBool ("BundleBuild.isReplaceBuiltInRes", value);
+		}
+	}
+
 	public const string BuiltExtraFolderName = "builtInExtra";
+
+	public static int VersionNum{
+		get{ return EditorPrefs.GetInt ("BundleBuild.Version", 1);}
+		set{ EditorPrefs.SetInt ("BundleBuild.Version", value);}
+	}
 }
 
 public enum CompressOption

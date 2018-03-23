@@ -6,13 +6,15 @@ using UnityEditor;
 public class BundleBuildView  {
 
 	string outputPath = "" ;
-	BuildTarget buildTarget ;
-	CompressOption compressOption ;
-	bool forceBuild  ; 
+//	BuildTarget buildTarget ;
+//	CompressOption compressOption ;
+//	bool forceBuild  ; 
+//	bool replaceBuiltInRes;
+	int version ;
 	public void Draw(Rect r){
 		GUILayout.BeginHorizontal (TableStyles.Toolbar);
 		{
-			outputPath = EditorGUILayout.TextField( "outputPath" , outputPath  ,TableStyles.TextField , GUILayout.Width(250));
+			outputPath = EditorGUILayout.TextField( "outputPath" , outputPath  ,TableStyles.TextField , GUILayout.MinWidth(250));
 			if (GUILayout.Button("Brower" , TableStyles.ToolbarButton , GUILayout.MaxWidth(120) )){
 				string result = EditorUtility.OpenFolderPanel("", "选择目录", "");
 				if (result != null)
@@ -21,23 +23,33 @@ public class BundleBuildView  {
 					GUI.FocusControl(null);
 				}
 			}
-			compressOption = (CompressOption)EditorGUILayout.EnumPopup ("CompressOption", compressOption, GUILayout.Width (300));
-//			BuildAssetBundleOptions.ForceRebuildAssetBundle
-			buildTarget = (BuildTarget)EditorGUILayout.EnumPopup("Build Target", buildTarget , GUILayout.Width(250));
-			forceBuild = (bool)EditorGUILayout.Toggle ("ForceRebuildAssetBundle", forceBuild);
-
-			if (GUILayout.Button("Build", TableStyles.ToolbarButton , GUILayout.MinWidth(120))){
-				BundleBuilder.BuildBundle(outputPath , compressOption , buildTarget , forceBuild);
+			version = int.Parse (EditorGUILayout.TextField ("version", version.ToString(), TableStyles.TextField, GUILayout.Width (250)));
+			if (GUILayout.Button("Build", TableStyles.ToolbarButton , GUILayout.MaxWidth(120))){
+				BundleBuilder.BuildBundle(version , outputPath , BundleBuildConfig.compressOption , BundleBuildConfig.BuildTarget , BundleBuildConfig.ForceBuild);
 			}
+		}
+		GUILayout.EndHorizontal ();
+		GUILayout.BeginHorizontal (TableStyles.Toolbar);
+		{
+			BundleBuildConfig.BuildTarget = (BuildTarget)EditorGUILayout.EnumPopup("Build Target", BundleBuildConfig.BuildTarget );
+			BundleBuildConfig.compressOption = (CompressOption)EditorGUILayout.EnumPopup ("CompressOption", BundleBuildConfig.compressOption);
+		}
+		GUILayout.EndHorizontal ();
+		GUILayout.BeginHorizontal (TableStyles.Toolbar);
+		{
+			BundleBuildConfig.ForceBuild = (bool)EditorGUILayout.Toggle ("ForceRebuild", BundleBuildConfig.ForceBuild );
+			BundleBuildConfig.isReplaceBuiltInRes = (bool)EditorGUILayout.Toggle ("替换内置资源", BundleBuildConfig.isReplaceBuiltInRes );
+			
 		}
 		GUILayout.EndHorizontal ();
 	}
 
 	public BundleBuildView(EditorWindow  hostWindow){
 		outputPath = BundleBuildConfig.outputPath;
-		compressOption = BundleBuildConfig.compressOption;
-		buildTarget = BundleBuildConfig.buildTarget;
-		forceBuild = BundleBuildConfig.forceBuild;
+//		compressOption = BundleBuildConfig.compressOption;
+//		buildTarget = BundleBuildConfig.BuildTarget;
+//		forceBuild = BundleBuildConfig.ForceBuild;
+		version = BundleBuildConfig.VersionNum;
 	}
 		
 	private string GetAssetPath(string result)

@@ -8,7 +8,7 @@ using System.IO;
 
 public class ABPackRule : EditorWindow
 {
-	[MenuItem("Window/AB BuildHelper/AB PackRule", false, 2)]
+//	[MenuItem("Window/AB BuildHelper/AB PackRule", false, 2)]
 	static void Init()
 	{
 		ABPackRule w = EditorWindow.GetWindow<ABPackRule>(false, "AB PackRule", true);

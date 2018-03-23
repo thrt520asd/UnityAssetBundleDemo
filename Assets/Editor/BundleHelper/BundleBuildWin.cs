@@ -20,24 +20,20 @@ public class BundleBuildWin : EditorWindow {
 		win.Show ();
 	}
 
-	[MenuItem("BundleBuild/Clear")]
+	[MenuItem("BundleBuild/Test")]
 	static void Clear(){
-		BundleBuilder.ClearBundleName ();
+//		Object[] obj = AssetDatabase.LoadAllAssetsAtPath ("Assets/../builtInExtra");
+//		Debug.Log (obj.Length);
+//		BundleBuilder.ClearBundleName ();
 	}
-	[MenuItem("BundleBuild/CopyFIle")]
+	[MenuItem("BundleBuild/GenTxt")]
 	static void DeZip(){
-//		EditorUtility.DisplayProgressBar ("复制内置资源", "复制内置资源", 1f);
-//		string path = Application.dataPath + "/../builtInExtra";
-//		EditorTools.CopyDir (path, Application.dataPath + "/Editor" );
+//		DirectoryInfo dir = new DirectoryInfo(Application.dataPath + "/../builtInExtra");
+//		dir.MoveTo (Application.dataPath + "/Editor/builtInExtra");
 //		AssetDatabase.Refresh ();
-		DirectoryInfo dir = new DirectoryInfo(Application.dataPath + "/../builtInExtra");
-		dir.MoveTo (Application.dataPath + "/Editor/builtInExtra");
-		AssetDatabase.Refresh ();
+//		BundleBuilder.GenShaderNameFile(BundleBuildConfig.BuiltExtraPath) ;
 	}
-//	[MenuItem("BundleBuild/MD5")]
-//	static void MD5(){
-//		BundleBuilder.CreateMD5File ();
-//	}
+
 
 	void OnEnable(){
 		if (m_bundleBuildView == null) {
@@ -67,59 +63,6 @@ public class BundleBuildWin : EditorWindow {
 	private BundleRuleView m_bundleRuleView = null ;
 	public System.Action onWinDisable = null ;
 
-
-//	[MenuItem("test/testReplacBuiltIn")]
-//	public static void ReplaceBuiltIn(){
-//		string unityPath = "Assets/prefab/Cube.prefab";
-//		string windowsPath = GetWindowsPath (unityPath);
-//
-//		StreamReader sr = new StreamReader( windowsPath , Encoding.Default);
-//		string content = sr.ReadToEnd();
-//		sr.Close ();
-//
-//		Object obj = AssetDatabase.LoadMainAssetAtPath (unityPath);
-//		Material mat = (obj as GameObject).GetComponent<MeshRenderer> ().sharedMaterial;
-//		long fileId = (mat as Object).GetFileID ();
-//		string guid = AssetDatabase.AssetPathToGUID (AssetDatabase.GetAssetPath (mat as Object));
-//		Debug.Log ("file id " + fileId + "  guidi" + guid);
-//
-//
-//		Dictionary<string , GUIIDAndFileId> tempDic = new Dictionary<string, GUIIDAndFileId> ();
-//		string extraUnityPath = "Assets/builtInExtra";
-//		string extraWindowsPath = GetWindowsPath (extraUnityPath);
-//		string[] filePaths = Directory.GetFiles(extraWindowsPath , "*.*" , SearchOption.AllDirectories) ;
-//		foreach (var filePath in filePaths) {
-//			if (filePath.EndsWith (".meta"))
-//				continue;
-//			string builtInUnityPath = GetUnityPath (filePath);
-//			Object builtInObj = AssetDatabase.LoadMainAssetAtPath (builtInUnityPath);
-//			tempDic.Add (builtInObj.name, new GUIIDAndFileId{
-//				guid = AssetDatabase.AssetPathToGUID(AssetDatabase.GetAssetPath(builtInObj)),
-//				fileid = builtInObj.GetFileID()
-//			});
-//		}
-//
-//		if (tempDic.ContainsKey (mat.name)) {
-//			GUIIDAndFileId ids = tempDic [mat.name];
-//			Debug.Log (ids.guid + "   " + ids.fileid);
-//			content = content.Replace (fileId.ToString(), ids.fileid.ToString());
-////			Debug.Log ("str " + str);
-//			content = content.Replace (guid, ids.guid);
-//			FileStream fs = File.Open (windowsPath, FileMode.OpenOrCreate);
-//			StreamWriter sw = new StreamWriter (fs);
-//			sw.Write (content);
-//			sw.WriteLine ("aaaaaaaaaaaaaaaaaa");
-//			sw.Close ();
-//			fs.Close ();
-//		} else {
-//			Debug.Log ("temp dic" + tempDic.Count);
-//			Debug.Log ("not contains : " + mat.name);
-//		}
-//		AssetDatabase.SaveAssets ();
-//		StreamReader sr2 = new StreamReader (windowsPath);
-//		Debug.Log (sr2.ReadToEnd ());
-//		sr2.Close ();
-//	}
 	private  static string GetWindowsPath(string path){
 		return Application.dataPath.Replace ("Assets", path);
 	}
