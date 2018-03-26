@@ -31,10 +31,17 @@ public static class BundleBuildConfig  {
 
 	public const string CommonBundleName = "common" ;
 	public const string ShaderBundleName = "shader" ;
-	public static string BuiltExtraPath {
+	/// <summary>
+	/// 内置资源解压系统目录
+	/// </summary>
+	/// <value>The built extra path.</value>
+	public static string BuiltExtraSysPath {
 		get {return Application.dataPath +"/../" + BuiltExtraFolderName;  ;}
 	}
-
+	/// <summary>
+	/// 内置资源解压Unity目录
+	/// </summary>
+	/// <value>The built extra asset path.</value>
 	public static string BuiltExtraAssetPath {
 		get { return Application.dataPath + "/" + BuiltExtraFolderName; }
 	}

@@ -7,7 +7,7 @@ using System.Text;
 
 public class BundleBuildWin : EditorWindow {
 	
-	[MenuItem("BundleBuild/快速打包AB" , false  , 0)]
+	[MenuItem("BundleBuild/快捷打包打包AB" , false  , 0)]
 	static void QuickPack(){
 		if (EditorUtility.DisplayDialog ("确认打包AB", "确认打包AB ,确认不可撤回", "yes")) {
 			BundleBuilder.BuildByLastSet ();
@@ -20,32 +20,17 @@ public class BundleBuildWin : EditorWindow {
 		win.Show ();
 	}
 
-	[MenuItem("BundleBuild/Test")]
-	static void Clear(){
-//		Object[] obj = AssetDatabase.LoadAllAssetsAtPath ("Assets/../builtInExtra");
-//		Debug.Log (obj.Length);
-//		BundleBuilder.ClearBundleName ();
-	}
-	[MenuItem("BundleBuild/GenTxt")]
-	static void DeZip(){
-//		DirectoryInfo dir = new DirectoryInfo(Application.dataPath + "/../builtInExtra");
-//		dir.MoveTo (Application.dataPath + "/Editor/builtInExtra");
-//		AssetDatabase.Refresh ();
-//		BundleBuilder.GenShaderNameFile(BundleBuildConfig.BuiltExtraPath) ;
-	}
-
-
 	void OnEnable(){
 		if (m_bundleBuildView == null) {
 			m_bundleBuildView = new BundleBuildView (this);
-			m_bundleRuleView = new BundleRuleView (this);
+//			m_bundleRuleView = new BundleRuleView (this);
 		}
 	}
 
 	void OnGUI(){
 		if (m_bundleBuildView != null) {
 			m_bundleBuildView.Draw (new Rect (0, 10, position.width, position.height - 10));
-			m_bundleRuleView.Draw (new Rect (0 , 40, position.width, position.height - 40));
+//			m_bundleRuleView.Draw (new Rect (0 , 40, position.width, position.height - 40));
 		}
 	}
 

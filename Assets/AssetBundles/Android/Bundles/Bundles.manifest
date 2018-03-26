@@ -1,18 +1,7 @@
 ManifestFileVersion: 0
-CRC: 2863642734
+CRC: 1005371801
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
-      Name: prefab1
-      Dependencies:
-        Dependency_0: common
-    Info_1:
       Name: prefab
-      Dependencies:
-        Dependency_0: common
-    Info_2:
-      Name: common
-      Dependencies: {}
-    Info_3:
-      Name: shader
       Dependencies: {}

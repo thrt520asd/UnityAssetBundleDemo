@@ -19,7 +19,7 @@ public class BundleBuilder  {
 	static Dictionary<string , HashSet<Object>> abDepDic  = new Dictionary<string, HashSet<Object>>();
 	static Dictionary<Object , List<string>> depObjDic = new Dictionary<Object, List<string>>() ;
 	static List<Object> dupResList = new List<Object>();
-	static List<Object> dupBuiltInResList = new List<Object>();
+	static Dictionary<Object , bool> dupBuiltInResDic = new Dictionary<Object , bool>();
 	static Dictionary<string , GUIIDAndFileId> builtInExtraDic = new Dictionary<string, GUIIDAndFileId> ();
 	static Dictionary<Object ,List<string>> replacedResAssetDic = new Dictionary<Object, List<string>> ();
 
@@ -89,7 +89,7 @@ public class BundleBuilder  {
 		abDepDic.Clear ();
 		depObjDic.Clear ();
 		dupResList.Clear ();
-		dupBuiltInResList.Clear ();
+		dupBuiltInResDic.Clear ();
 
 		string[] abNames = AssetDatabase.GetAllAssetBundleNames ();
 		foreach (var abName in abNames) {
@@ -125,7 +125,7 @@ public class BundleBuilder  {
 			}
 			string depPath = AssetDatabase.GetAssetPath (pair.Key);
 			if (IsBuildIn (depPath)) {
-				dupBuiltInResList.Add (pair.Key);
+				dupBuiltInResDic.Add (pair.Key , false );
 			} else {
 				dupResList.Add (pair.Key);
 			}
@@ -135,14 +135,14 @@ public class BundleBuilder  {
 	}
 
 	private static void CheckBuiltInRes(){
-		if (!Directory.Exists (BundleBuildConfig.BuiltExtraPath)) {
+		if (!Directory.Exists (BundleBuildConfig.BuiltExtraSysPath)) {
 			BundleBuildConfig.isReplaceBuiltInRes = false;
-			EditorUtility.DisplayDialog ("Error", "无内置资源文件，请检查路径，或更换文件 ， tips:当前路径" + BundleBuildConfig.BuiltExtraPath , "ok");
+			EditorUtility.DisplayDialog ("Error", "无内置资源文件，请检查路径，或更换文件 ， tips:当前路径" + BundleBuildConfig.BuiltExtraSysPath , "ok");
 		}
 	}
 
 	private static void CopyNeedExtractFile(){
-		string shaderNameFilePath = BundleBuildConfig.BuiltExtraPath + "/shaderName.txt";
+		string shaderNameFilePath = BundleBuildConfig.BuiltExtraSysPath + "/shaderName.txt";
 		if (!File.Exists (shaderNameFilePath)) {
 			GenShaderNameFile ();
 		}
@@ -157,24 +157,25 @@ public class BundleBuilder  {
 				}
 			}
 		}
-		foreach (var obj in dupBuiltInResList) {
+		foreach (var pair in dupBuiltInResDic) {
+			Object obj = pair.Key;
 			string extName = "";
 			string filePath = "";
 			if (obj is Shader ) {
 				if (shaderFileNameDic.ContainsKey (obj.name)) {
-					filePath = BundleBuildConfig.BuiltExtraPath + "/" + shaderFileNameDic [obj.name];
+					filePath = BundleBuildConfig.BuiltExtraSysPath + "/" + shaderFileNameDic [obj.name];
 				} else {
 					Debug.Log ("not shader " + obj.name);
 				}
 			} else if (obj is Material) {
 				extName = ".mat";
-				filePath = BundleBuildConfig.BuiltExtraPath + "/" + obj.name + extName;
+				filePath = BundleBuildConfig.BuiltExtraSysPath + "/" + obj.name + extName;
 			} else if (obj is Mesh) {
 				extName = ".asset";
-				filePath = BundleBuildConfig.BuiltExtraPath + "/" + obj.name + extName;
+				filePath = BundleBuildConfig.BuiltExtraSysPath + "/" + obj.name + extName;
 			} else {
 				extName = ".asset";
-				filePath = BundleBuildConfig.BuiltExtraPath + "/" + obj.name + extName;
+				filePath = BundleBuildConfig.BuiltExtraSysPath + "/" + obj.name + extName;
 				Debug.Log ("现在不支持除了shader mesh ， material以外的内置资源");
 			}
 
@@ -192,7 +193,7 @@ public class BundleBuilder  {
 	}
 		
 	public static void GenShaderNameFile(){
-		DirectoryInfo dirInfo = new DirectoryInfo (BundleBuildConfig.BuiltExtraPath);
+		DirectoryInfo dirInfo = new DirectoryInfo (BundleBuildConfig.BuiltExtraSysPath);
 		Debug.Log (dirInfo.FullName);
 		FileInfo[] files = dirInfo.GetFiles ("*.shader", SearchOption.AllDirectories);
 		Dictionary<string , string> shaderFileNameDic = new Dictionary<string, string> ();
@@ -212,7 +213,7 @@ public class BundleBuilder  {
 			}
 			sr.Close ();
 		}
-		using (FileStream fs = new FileStream (BundleBuildConfig.BuiltExtraPath + "/shaderName.txt" , FileMode.OpenOrCreate)) {
+		using (FileStream fs = new FileStream (BundleBuildConfig.BuiltExtraSysPath + "/shaderName.txt" , FileMode.OpenOrCreate)) {
 			using (StreamWriter sw = new StreamWriter (fs)) {
 				foreach (var pair in shaderFileNameDic) {
 					sw.WriteLine (string.Format ("{0}:{1}", pair.Key, pair.Value));
@@ -240,10 +241,11 @@ public class BundleBuilder  {
 	}
 
 	private static void ReplaceBuiltInRes(){
-		float count = dupBuiltInResList.Count;
+		float count = dupBuiltInResDic.Count;
 		float i = 0;
 		replacedResAssetDic.Clear ();
-		foreach (var builtInRes in dupBuiltInResList) {
+		foreach (var pair in dupBuiltInResDic) {
+			Object builtInRes = pair.Key;
 			EditorUtility.DisplayProgressBar ("替换guiid和fileid", "替换guiid和fileid", ++i / count);
 			if (!builtInExtraDic.ContainsKey (builtInRes.name)) {
 				Debug.Log ("无该资源" + builtInRes.name);
@@ -269,6 +271,7 @@ public class BundleBuilder  {
 				}
 			}
 			if (isPack) {
+				dupBuiltInResDic[builtInRes] = true;
 				GUIIDAndFileId ids = builtInExtraDic [builtInRes.name];
 				string path = AssetDatabase.GUIDToAssetPath (ids.guid);
 				dupResList.AddRange(AssetDatabase.LoadAllAssetsAtPath(path)) ;
@@ -322,7 +325,11 @@ public class BundleBuilder  {
 		foreach (var depobj in alldepSet) {
 			if (depobj is Shader) {
 				string path = AssetDatabase.GetAssetPath (depobj);
-				Debug.Log (path);
+//				Debug.Log (path);
+				if (IsBuildIn (path)) {
+					Debug.Log ("打包内置资源" + path + depobj.name);
+					continue;
+				}
 				AssetImporter ai = AssetImporter.GetAtPath (path);
 				if (ai == null) {
 					Debug.Log (" ai null exort  " + AssetDatabase.GetAssetPath (depobj) + depobj.name);
@@ -334,34 +341,145 @@ public class BundleBuilder  {
 	}
 
 	private static void AfterBuild(){
-		CreateMD5File ();
+		Dictionary<string , string> dic = CreateMD5File ();
+		ComparerBundleFile (dic);
 		if (BundleBuildConfig.isReplaceBuiltInRes) {
 			ReverReplaceBuiltInRes ();
 			DeleteCopyBuiltInRes ();
 		}
-		ComparerBundleFile ();
+		AnalysisBuildedBundles ();
 	}
 
-	public static void CreateMD5File ()
+	public static Dictionary<string , string> CreateMD5File ()
 	{
-		EditorUtility.DisplayProgressBar ("生成MD5文件", "生成MD5文件", 1f);
-		FileStream fs = new FileStream (abPath + "/../file.txt", FileMode.OpenOrCreate);
+		string newFilePath = abPath + "/../newfile.txt";
+		string lastFilePath = abPath + "/../lastfile.txt";
+		if (File.Exists (lastFilePath)) {
+			File.Delete (lastFilePath);
+		}
+		if (File.Exists (newFilePath)) {
+			File.Move (newFilePath, abPath + "/../lastfile.txt");
+		}
+		Dictionary<string , string> md5Dic = new Dictionary<string, string> ();
+		EditorUtility.DisplayProgressBar ("生成MD5文件", "生成MD5文件", 0f);
+		FileStream fs = new FileStream (newFilePath, FileMode.OpenOrCreate);
 		StreamWriter sw = new StreamWriter (fs);
 		string[] files = Directory.GetFiles (abPath, "*.*", SearchOption.AllDirectories).Where (s => {return !(s.EndsWith(".meta") || s.EndsWith(".manifest"));}).ToArray();
 		StringBuilder stringBuilder = new StringBuilder ();
-		string parentPath = abPath.Substring(abPath.LastIndexOf("/"));
+		string parentName = abPath.Substring(abPath.LastIndexOf("/"));
 		foreach (var filePath in files) {
 			string md5 = GetMD5HashFromFile (filePath);
-			string fileName = filePath.Substring (filePath.LastIndexOf( parentPath + "\\")+ (parentPath + "\\").Length);
+			string fileName = filePath.Substring (filePath.LastIndexOf( parentName + "\\")+ (parentName + "\\").Length);
+			md5Dic [fileName] = md5;
 			stringBuilder.AppendLine (string.Format ("{0}:{1}", fileName, md5));
 		}
 		sw.Write (stringBuilder.ToString ());
 		sw.Close ();
 		fs.Close ();
+		return md5Dic;
+	}
+
+	public static void ComparerBundleFile (Dictionary<string , string> newMd5Dic)
+	{
+		if (!File.Exists (abPath + "/../lastfile.txt")) {
+			return;
+		}
+		Dictionary<string , string> lastAbMd5Dic = new Dictionary<string, string> ();
+		using (FileStream fs = new FileStream (abPath + "/../lastfile.txt" , FileMode.Open)){
+			using (StreamReader sr = new StreamReader (fs)) {
+				string content = sr.ReadLine ();
+				while (content != null) {
+					string[] strs = content.Split (':');
+					string filePath = strs [0];
+					string md5 = strs [1];
+					content = sr.ReadLine ();
+					lastAbMd5Dic [filePath] = md5;
+				}
+			}
+		}
+		List<string> updateAbList = new List<string> ();
+		List<string> deleteAbList = new List<string> ();
+		foreach (var pair in newMd5Dic) {
+			string filePath = pair.Key;
+			string md5 = pair.Value;
+			string old;
+			bool isSame = false;
+			bool isGot = lastAbMd5Dic.TryGetValue (filePath,out old);
+			if (isGot) {
+				isSame = md5.Equals (old);
+			} else {
+				isSame = false;
+			}
+			if (!isSame) {
+				updateAbList.Add (filePath);
+			}
+		}
+		foreach (var pair in lastAbMd5Dic) {
+			if(!newMd5Dic.ContainsKey(pair.Key)){
+				deleteAbList.Add (pair.Key);
+			}
+		}
+
+		string path = Application.dataPath + "/../Version/"+BundleBuildConfig.BuildTarget.ToString() + "/version_"+BundleBuildConfig.VersionNum; 
+		if (Directory.Exists (path)) {Directory.Delete (path, true);}
+		Directory.CreateDirectory (path);
+		if (updateAbList.Count == 0 && deleteAbList.Count == 0 ) {
+			EditorUtility.DisplayDialog ("无需更新资源" , "无需更新资源" , "ok");
+			return;
+		}
+		foreach (var abName in updateAbList) {
+			File.Copy (abPath + "/"+ abName, path + "/" + abName);
+			Debug.Log ("file copy" + abPath + "/" + abName + "          " + path + "/" + abName);
+		}
+		using (FileStream updateTxtFs = new FileStream (path + "/update.txt" , FileMode.OpenOrCreate)) {
+			using (StreamWriter sw = new StreamWriter (updateTxtFs)) {
+				sw.WriteLine ("add");
+				foreach (var abName in updateAbList) {
+					sw.WriteLine (abName + ":" + newMd5Dic [abName]);
+				}
+				sw.WriteLine ("del");
+				foreach (var abName in deleteAbList) {
+					sw.WriteLine (abName);
+				}
+			}
+		}
 	}
 
 	private static void AnalysisBuildedBundles(){
-		
+		string[] abNames = AssetDatabase.GetAllAssetBundleNames ();
+		int abCount = 0, assetCount = 0, depCount = 0, dupCount = 0 , buildInCount = 0;
+		string filePath = Application.dataPath + "/" + BundleBuildConfig.outputPath + "/packInfo.txt";
+		using (FileStream fs = new FileStream (filePath, FileMode.OpenOrCreate)) {
+			using(StreamWriter sw = new StreamWriter (fs)){
+				sw.WriteLine ("AB包数量" + abNames.Length);
+				sw.WriteLine ("==========AB包包含Asset==========");
+				foreach (var pair in abAssetDic) {
+					sw.WriteLine ("----------" + pair.Key + "----------");
+					foreach (var asset in pair.Value) {
+						sw.WriteLine (asset);
+						assetCount++;
+					}
+				}
+				sw.WriteLine ("==========AB包依赖==========");
+				foreach (var pair in abDepDic) {
+					sw.WriteLine ("--------------"+pair.Key+"--------------" );
+					foreach (var dep in pair.Value) {
+						depCount++;
+						sw.WriteLine (AssetDatabase.GetAssetPath (dep) +string.Format("({0})" , dep.GetType()));
+					}
+				}
+				sw.WriteLine ("==========重复引用资源==========(修改为common)");
+				foreach (var path in dupResList) {
+					sw.WriteLine (path);
+				}
+				sw.WriteLine ("==========重复内置资源==========");
+
+				foreach (var pair in dupBuiltInResDic) {
+					sw.WriteLine (pair.Key.name + (pair.Value ? "已替换" : "未替换"));
+				}
+				sw.WriteLine (string.Format ("AB包：{0}个 ， asset：{1}个 ， dep{2}个",abNames.Length, assetCount, depCount));
+			}
+		}
 	}
 
 	private static void ReverReplaceBuiltInRes(){
@@ -386,65 +504,10 @@ public class BundleBuilder  {
 	}
 
 	private static void DeleteCopyBuiltInRes(){
-		Directory.Delete (BundleBuildConfig.BuiltExtraAssetPath , true);
+		if (Directory.Exists (BundleBuildConfig.BuiltExtraAssetPath)) {
+			Directory.Delete (BundleBuildConfig.BuiltExtraAssetPath, true);
+		}
 	}
-
-	public static void ComparerBundleFile ()
-	{
-		
-	}
-
-	private static void SaveBuildInfo(){
-		int abCount = 0, assetCount = 0, depCount = 0, dupCount = 0 , buildInCount = 0;
-		FileStream fs = new FileStream (Application.dataPath + "/pack.txt" , FileMode.OpenOrCreate , FileAccess.Write );
-		StreamWriter sw = new StreamWriter (fs);
-		sw.WriteLine (System.DateTime.Now.ToString ());
-		sw.WriteLine ("==============abAssets==================" );
-		foreach (var pair in abAssetDic) {
-			sw.WriteLine ("--------------"+pair.Key+"--------------" );
-			foreach (var asset in pair.Value) {
-				sw.WriteLine (asset);
-				assetCount++;
-			}
-		}
-		sw.WriteLine ("==============ab对应依赖==================" );
-		foreach (var pair in abDepDic) {
-			abCount++;
-			sw.WriteLine ("--------------"+pair.Key+"--------------" );
-			foreach (var dep in pair.Value) {
-				depCount++;
-				sw.WriteLine (AssetDatabase.GetAssetPath (dep) +string.Format("({0})" , dep.GetType()));
-			}
-		}
-		sw.WriteLine ("==============依赖对应ab==================" );
-		depObjDic.OrderBy(x => x.Value.Count) ;
-		foreach (var pair in depObjDic) {
-			Object depObj = pair.Key;
-			string path = AssetDatabase.GetAssetPath (depObj) +string.Format("({0})" , depObj.GetType()) ;
-			if (IsBuildIn (path)) {
-				buildInCount++;
-			}
-			sw.Write (path+ ": ");
-			List<string> abNamesList = depObjDic [depObj];
-			for (int i = 0; i < abNamesList.Count; i++) {
-				sw.Write ( abNamesList [i]+" , ");
-			}
-			sw.WriteLine ();
-		}
-		sw.WriteLine ("==============总结==================" );
-		sw.WriteLine (string.Format ("ab包：{0}个 ， asset：{1}个 ， dep{2}个， 重复asset：{3}个， 内置asset{4}个", abCount, assetCount, depCount, dupCount, buildInCount));
-		sw.WriteLine ("打入common包");
-		for (int i = 0; i < dupResList.Count; i++) {
-			sw.WriteLine(AssetDatabase.GetAssetPath(dupResList[i]));
-		}
-		sw.WriteLine ("内置资源");
-		for (int i = 0; i < dupBuiltInResList.Count; i++) {
-			sw.WriteLine(AssetDatabase.GetAssetPath(dupBuiltInResList[i])+dupBuiltInResList[i].name) ;
-		}
-		sw.Close ();
-		fs.Close ();
-	}
-
 
 
 	/// <summary>

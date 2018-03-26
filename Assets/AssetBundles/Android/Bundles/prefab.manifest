@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 755662450
+CRC: 3963859795
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: ab2faa1cd94b5cc0626cc85224525027
+    Hash: 4092b175ac127386ab18609a1209aedc
   TypeTreeHash:
     serializedVersion: 2
     Hash: 3fc9c10334d3a3decdd52b633b70bd7c
@@ -32,8 +32,7 @@ ClassTypes:
 - Class: 224
   Script: {instanceID: 0}
 Assets:
+- Assets/prefab/Text.prefab
 - Assets/prefab/GameObject.prefab
-- Assets/prefab/Image.prefab
 - Assets/prefab/Toggle.prefab
-Dependencies:
-- F:/git/UnityAssetBundleDemo/Assets/AssetBundles/Android/Bundles/common
+Dependencies: []

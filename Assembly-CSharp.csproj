@@ -53,7 +53,9 @@
   <ItemGroup>
      <Compile Include="Assets\lzip.cs" />
      <Compile Include="Assets\Test.cs" />
-     <None Include="Assets\AssetBundles\Android\file.txt" />
+     <None Include="Assets\AssetBundles\packInfo.txt" />
+     <None Include="Assets\AssetBundles\Android\lastfile.txt" />
+     <None Include="Assets\AssetBundles\Android\newfile.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

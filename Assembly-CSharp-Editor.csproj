@@ -72,7 +72,9 @@
      <Compile Include="Assets\Editor\EditorTools.cs" />
      <Compile Include="Assets\Editor\ExportBuiltInResTools.cs" />
      <Compile Include="Assets\Editor\ZipExTools.cs" />
-     <None Include="Assets\AssetBundles\Android\file.txt" />
+     <None Include="Assets\AssetBundles\packInfo.txt" />
+     <None Include="Assets\AssetBundles\Android\lastfile.txt" />
+     <None Include="Assets\AssetBundles\Android\newfile.txt" />
  <Reference Include="UnityEditor.Advertisements">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Advertisements/Editor/UnityEditor.Advertisements.dll</HintPath>
  </Reference>

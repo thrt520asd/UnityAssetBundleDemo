@@ -11,6 +11,7 @@ public class BundleRuleView  {
 	private ABPackRuleConfig config;
 	private int index = -1;
 	private EditorWindow m_hostWin;
+	private bool isPull = false ;
 
 	public BundleRuleView(EditorWindow  hostWindow){
 		config = AutoABNamePostprocessor.config;
@@ -20,29 +21,31 @@ public class BundleRuleView  {
 	public void Draw(Rect r){
 		GUILayout.BeginHorizontal (TableStyles.Toolbar);
 		{
-			GUILayout.Label ("PACK RULE"   , new GUIStyle{alignment = TextAnchor.MiddleCenter , normal = new GUIStyleState{textColor = new Color(1  , 1 , 1)}});
+			isPull = GUILayout.Toggle (isPull, "PACK RULE");//new GUIStyle{alignment = TextAnchor.MiddleCenter , normal = new GUIStyleState{textColor = new Color(1  , 1 , 1)}});
 		}
 		GUILayout.Space (3f);
 		GUILayout.EndHorizontal ();
-		GUILayout.BeginHorizontal (TableStyles.Toolbar);
-		{
-			if (GUILayout.Button ("AddRule", TableStyles.ToolbarButton)) {
-				config.rules.Add (new ABPackRuleConfig.Rule ());
-				EditorUtility.SetDirty (config);
+		if (isPull) {
+			for (int i = 0; i < config.rules.Count; i++) {
+				OnGUIRule(config.rules[i], index == i);
+				if (Event.current.type == EventType.MouseUp && GUILayoutUtility.GetLastRect().Contains(Event.current.mousePosition))
+				{
+					index = i;
+					Event.current.Use();
+				}
 			}
-			if (GUILayout.Button ("Apply", TableStyles.ToolbarButton)) {
-				BundleBuilder.ClearBundleName ();
-				AutoABNamePostprocessor.PackAll();
-			}
-		}
-		GUILayout.EndHorizontal ();
-		for (int i = 0; i < config.rules.Count; i++) {
-			OnGUIRule(config.rules[i], index == i);
-			if (Event.current.type == EventType.MouseUp && GUILayoutUtility.GetLastRect().Contains(Event.current.mousePosition))
+			GUILayout.BeginHorizontal (TableStyles.Toolbar);
 			{
-				index = i;
-				Event.current.Use();
+				if (GUILayout.Button ("AddRule", TableStyles.ToolbarButton)) {
+					config.rules.Add (new ABPackRuleConfig.Rule ());
+					EditorUtility.SetDirty (config);
+				}
+				if (GUILayout.Button ("Apply", TableStyles.ToolbarButton)) {
+					BundleBuilder.ClearBundleName ();
+					AutoABNamePostprocessor.PackAll();
+				}
 			}
+			GUILayout.EndHorizontal ();
 		}
 	}
 
@@ -96,8 +99,6 @@ public class BundleRuleView  {
 
 	private void OnWinClose(){
 		AssetDatabase.SaveAssets ();
-//		EditorUtility.SetDirty (config);
-//		configObj.ApplyModifiedProperties ();
 	}
 
 

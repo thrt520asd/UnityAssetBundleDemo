@@ -5,28 +5,18 @@ using UnityEditor;
 
 public class BundleBuildView  {
 
+	private BundleRuleView m_ruleView = null;
+
 	string outputPath = "" ;
-//	BuildTarget buildTarget ;
-//	CompressOption compressOption ;
-//	bool forceBuild  ; 
-//	bool replaceBuiltInRes;
 	int version ;
+	bool isUseNowVersion = false ;
 	public void Draw(Rect r){
 		GUILayout.BeginHorizontal (TableStyles.Toolbar);
 		{
-			outputPath = EditorGUILayout.TextField( "outputPath" , outputPath  ,TableStyles.TextField , GUILayout.MinWidth(250));
-			if (GUILayout.Button("Brower" , TableStyles.ToolbarButton , GUILayout.MaxWidth(120) )){
-				string result = EditorUtility.OpenFolderPanel("", "选择目录", "");
-				if (result != null)
-				{
-					outputPath = GetAssetPath(result);
-					GUI.FocusControl(null);
-				}
-			}
+			GUILayout.Label ("当前版本号 : " + version, TableStyles.TextField , GUILayout.Width(200));
 			version = int.Parse (EditorGUILayout.TextField ("version", version.ToString(), TableStyles.TextField, GUILayout.Width (250)));
-			if (GUILayout.Button("Build", TableStyles.ToolbarButton , GUILayout.MaxWidth(120))){
-				BundleBuilder.BuildBundle(version , outputPath , BundleBuildConfig.compressOption , BundleBuildConfig.BuildTarget , BundleBuildConfig.ForceBuild);
-			}
+			isUseNowVersion = GUILayout.Toggle (isUseNowVersion , "是否重用当前版本" );
+
 		}
 		GUILayout.EndHorizontal ();
 		GUILayout.BeginHorizontal (TableStyles.Toolbar);
@@ -42,14 +32,25 @@ public class BundleBuildView  {
 			
 		}
 		GUILayout.EndHorizontal ();
+		m_ruleView.Draw (new Rect (0, 0, 0, 0));
+		GUILayout.BeginHorizontal ();
+		{
+			if (GUILayout.Button("Build" , GUILayout.Height(50))){
+				if (BundleBuildConfig.VersionNum == version && !isUseNowVersion) {
+					EditorUtility.DisplayDialog ("版本号重复， 打包失败", "版本号重复， 打包失败", "ok");
+					return;
+				}
+				BundleBuilder.BuildBundle(version , outputPath , BundleBuildConfig.compressOption , BundleBuildConfig.BuildTarget , BundleBuildConfig.ForceBuild);
+			}
+
+		}
+		GUILayout.EndHorizontal ();
 	}
 
 	public BundleBuildView(EditorWindow  hostWindow){
 		outputPath = BundleBuildConfig.outputPath;
-//		compressOption = BundleBuildConfig.compressOption;
-//		buildTarget = BundleBuildConfig.BuildTarget;
-//		forceBuild = BundleBuildConfig.ForceBuild;
 		version = BundleBuildConfig.VersionNum;
+		m_ruleView = new BundleRuleView (hostWindow);
 	}
 		
 	private string GetAssetPath(string result)

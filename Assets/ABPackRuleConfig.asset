@@ -15,6 +15,6 @@ MonoBehaviour:
   - path: prefab
     typeFilter: 
     ruleType: 0
-  - path: prefab1
+  - path: prefab2
     typeFilter: 
     ruleType: 0
